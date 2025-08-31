@@ -1,0 +1,57 @@
+# Docker Compose for local development
+version: '3.8'
+
+services:
+  freescout:
+    image: tiredofit/freescout:latest
+    container_name: freescout
+    ports:
+      - "8080:80"
+    environment:
+      - SITE_URL=${SITE_URL}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASS=${ADMIN_PASS}
+      - ADMIN_FIRST_NAME=${ADMIN_FIRST_NAME}
+      - ADMIN_LAST_NAME=${ADMIN_LAST_NAME}
+      - TIMEZONE=${TIMEZONE}
+      - DB_TYPE=mysql
+      - DB_HOST=freescout-db
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - ENABLE_SSL_PROXY=false
+      - DISPLAY_ERRORS=false
+      - LOG_LEVEL=notice
+    volumes:
+      - freescout-data:/data
+      - freescout-logs:/www/logs
+      - ./modules:/www/html/Modules
+    depends_on:
+      - freescout-db
+    restart: unless-stopped
+    networks:
+      - freescout-network
+
+  freescout-db:
+    image: mariadb:10.6
+    container_name: freescout-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+    volumes:
+      - freescout-db:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - freescout-network
+
+volumes:
+  freescout-data:
+  freescout-logs:
+  freescout-db:
+
+networks:
+  freescout-network:
+    driver: bridge
