@@ -134,3 +134,6 @@ docker exec freescout chown -R nginx:www-data /data/Modules/FreeScoutGPT
 - **Stripe**: Payment processing integration
 
 **Note**: Community modules are third-party developed. Review code and use at your own risk.
+
+## Railway Deployment Status
+Updated: MySQL connectivity configured for Railway hosting.
