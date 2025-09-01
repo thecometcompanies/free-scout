@@ -1,5 +1,8 @@
 FROM tiredofit/freescout:latest
 
+# Install Mailgun packages for Railway HTTPS API
+RUN composer require symfony/mailgun-mailer symfony/http-client --no-interaction
+
 # Copy custom modules to the correct location for tiredofit image
 COPY --chown=1000:1000 modules/ /data/Modules/
 
