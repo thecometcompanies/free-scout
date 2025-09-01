@@ -1,6 +1,9 @@
 FROM tiredofit/freescout:latest
 
-# Copy custom modules and set permissions in one step
+# Copy custom modules to the correct location for tiredofit image
+COPY --chown=1000:1000 modules/ /data/Modules/
+
+# Also copy to the html location as backup
 COPY --chown=1000:1000 modules/ /www/html/Modules/
 
 # Set Railway port environment variable
