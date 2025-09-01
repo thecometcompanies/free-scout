@@ -136,4 +136,4 @@ docker exec freescout chown -R nginx:www-data /data/Modules/FreeScoutGPT
 **Note**: Community modules are third-party developed. Review code and use at your own risk.
 
 ## Railway Deployment Status
-Updated: MySQL connectivity configured for Railway hosting.
+Updated: MySQL connectivity and Mailgun email service configured for Railway hosting.
